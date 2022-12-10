@@ -40,7 +40,7 @@ function Product({ product }: Props) {
   const addItemToBasket = () => {
     dispatch(addToBasket(product));
 
-    toast.success(`${product.title} added to basket`, {
+    toast.success(`${product.title} Added To Basket`, {
       position: 'bottom-center',
     });
   };

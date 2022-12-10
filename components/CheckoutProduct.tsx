@@ -18,7 +18,7 @@ function CheckoutProduct({ id, items }: Props) {
   const removeItemFromBasket = () => {
     dispatch(removeFromBasket({ id }));
 
-    toast.error(`${items[0].title} removed from basket`, {
+    toast.error(`${items[0].title} Removed From Basket`, {
       position: 'bottom-center',
     });
   };
