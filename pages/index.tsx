@@ -70,13 +70,18 @@ const Home = ({ categories, products }: Props) => {
 export default Home;
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
+  const slug = 'macbook-air-with-m2-chip';
   const categoryQuery = groq`
 *[_type=="category"]`;
   const productQuery = groq`
 *[_type=="product"]`;
+  const productQuery1 = groq`
+ 
+*[_type=="product" && slug.current == slug]`;
 
   const categories: Category[] = await sanityClient.fetch(categoryQuery);
   const products: ProductType[] = await sanityClient.fetch(productQuery);
+
   return {
     props: { categories, products },
     revalidate: 10,

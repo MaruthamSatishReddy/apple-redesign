@@ -9,6 +9,7 @@ import {
   ShoppingBagOutline,
   UserOutline,
 } from 'heroicons-react';
+import AccountScreen from './Account';
 function Header() {
   const easing = [0.6, -0.5, 1, 0.99];
   const fadeInUp = {
@@ -63,25 +64,20 @@ function Header() {
       </div>
       <div className="flex items-center justify-center gap-x-4 md:w-1/5">
         <SearchOutline className="headerIcon" />
+
         <Link href="/checkout">
           <div className="relative cursor-pointer">
-            <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[10px] text-white">
-              5
-            </span>
-
-            <Link href="/checkout">
-              <div className="relative cursor-pointer">
-                {items.length > 0 && (
-                  <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[10px] text-white">
-                    {items.length}
-                  </span>
-                )}
-                <ShoppingBagOutline className="headerIcon" />
-              </div>
-            </Link>
+            {items.length > 0 && (
+              <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[10px] text-white">
+                {items.length}
+              </span>
+            )}
+            <ShoppingBagOutline className="headerIcon" />
           </div>
         </Link>
-        <UserOutline className="headerIcon" />
+        <Link href="/">
+          <UserOutline className="headerIcon" />
+        </Link>
       </div>
     </header>
   );

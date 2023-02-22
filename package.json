@@ -10,14 +10,16 @@
     "format": "pnpm prettier --write ."
   },
   "dependencies": {
+    "@badrap/bar-of-progress": "^0.2.2",
     "@headlessui/react": "^1.6.6",
-    "@heroicons/react": "^2.0.13",
+    "@heroicons/react": "^1.0.6",
     "@reduxjs/toolkit": "^1.9.1",
     "@sanity/client": "^3.4.1",
     "@sanity/image-url": "^1.0.1",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
+    "daisyui": "^2.50.1",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.5",
     "framer-motion": "^7.6.19",

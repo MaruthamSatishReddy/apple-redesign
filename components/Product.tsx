@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import { addToBasket } from '../redux/basketSlice';
+import Link from 'next/link';
 
 interface Props {
   product: Product;
@@ -39,7 +40,6 @@ function Product({ product }: Props) {
 
   const addItemToBasket = () => {
     dispatch(addToBasket(product));
-
     toast.success(`${product.title} Added To Basket`, {
       position: 'bottom-center',
     });
@@ -50,7 +50,7 @@ function Product({ product }: Props) {
       initial="initial"
       animate="animate"
       exit={{ opacity: 0 }}
-      className="flex h-fit w-[320px] select-none flex-col space-y-3 rounded-xl bg-[#35383C] p-8 md:h-[500px] md:w-[400px] md:p-10"
+      className="flex h-fit w-[320px] select-none flex-col space-y-3 rounded-xl bg-[#35383C] p-8 md:h-[500px] md:w-[400px] md:p-10 "
     >
       <motion.div variants={fadeInUp} className="relative h-64 w-full md:h-72">
         <Image
@@ -63,7 +63,9 @@ function Product({ product }: Props) {
 
       <div className="flex flex-1 items-center justify-between space-x-3">
         <div className="space-y-2 text-xl text-white md:text-2xl">
-          <p>{product.title}</p>
+          <Link href={`/product/${product.slug.current}`}>
+            <p>{product.title}</p>
+          </Link>
           <p>{product.price}</p>
         </div>
 

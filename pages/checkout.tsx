@@ -1,18 +1,14 @@
-import Head from 'next/head';
 import Header from '../components/Header';
-import { ChevronDown } from 'heroicons-react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Currency from 'react-currency-formatter';
 import { useSelector } from 'react-redux';
-import Stripe from 'stripe';
-import Button from '../components/Button';
-import { Product } from '../typings';
-// import CheckoutProduct from "../components/CheckoutProduct";
 import { selectBasketItems, selectBasketTotal } from '../redux/basketSlice';
-import CheckoutProduct from '../components/CheckoutProduct';
+import Image from 'next/image';
 
-function Checkout() {
+import { Product } from '../typings';
+import Button from '../components/Button';
+import { urlFor } from '../sanity';
+const Checkout = () => {
   const items = useSelector(selectBasketItems);
   const basketTotal = useSelector(selectBasketTotal);
   const router = useRouter();
@@ -21,6 +17,15 @@ function Checkout() {
   );
   const [loading, setLoading] = useState(false);
 
+  const [quantity, setQuantity] = useState(1);
+  const handleIncrement = () => {
+    setQuantity(quantity + 1);
+  };
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
   useEffect(() => {
     const groupedItems = items.reduce((results, item) => {
       (results[item._id] = results[item._id] || []).push(item);
@@ -29,111 +34,130 @@ function Checkout() {
 
     setGroupedItemsInBasket(groupedItems);
   }, [items]);
-
+  const handleQuantityChange = (e) => {
+    setQuantity(e.target.value);
+  };
   return (
-    <div className="h-screen overflow-hidden overflow-y-scroll overflow-x-hidden scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
-      <Head>
-        <title>Bag - Apple</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <>
       <Header />
-      <main className="mx-auto max-w-5xl pb-24">
-        <div className="px-5">
-          <h1 className="my-4 text-3xl font-semibold lg:text-4xl">
-            {items.length > 0 ? 'Review your bag.' : 'Your bag is empty.'}
-          </h1>
-          <p className="my-4">Free delivery and free returns.</p>
-
-          {items.length === 0 && (
-            <Button
-              title="Continue Shopping"
-              onClick={() => router.push('/')}
-            />
-          )}
-        </div>
-
-        {items.length > 0 && (
-          <div className="mx-5 md:mx-8">
-            {Object.entries(groupedItemsInBasket).map(([key, items]) => (
-              <CheckoutProduct key={key} items={items} id={key} />
-            ))}
-
-            <div className="my-12 mt-6 ml-auto max-w-3xl">
-              <div className="divide-y divide-gray-300">
-                <div className="pb-4">
-                  <div className="flex justify-between">
-                    <p>Subtotal</p>
-                    <p>
-                      <Currency quantity={basketTotal} currency="USD" />
-                    </p>
-                  </div>
-                  <div className="flex justify-between">
-                    <p>Shipping</p>
-                    <p>FREE</p>
-                  </div>
-                  <div className="flex justify-between">
-                    <div className="flex flex-col gap-x-1 lg:flex-row">
-                      Estimated tax for:{' '}
-                      <p className="flex cursor-pointer items-end text-blue-500 hover:underline">
-                        Enter zip code
-                        <ChevronDown className="h-6 w-6" />
-                      </p>
-                    </div>
-                    <p>$ -</p>
-                  </div>
-                </div>
-
-                <div className="flex justify-between pt-4 text-xl font-semibold">
-                  <h4>Total</h4>
-                  <h4>
-                    <Currency quantity={basketTotal} currency="USD" />
-                  </h4>
-                </div>
+      <div className="h-screen min-w-full bg-gray-200 overflow-x-hidden scrollbar-thin scrollbar-thumb-[#F7AB0A]/80">
+        <div className="container lg:grid grid-cols-12 gap-4 items-start pb-16 pt-4 ml-10">
+          <div className="xl:col-span-8 lg:col-span-8 ">
+            <div className="bg-white">
+              <div className="text-start text-black font-semibold mt-3 py-4 px-3 border-b-2 border-gray-400">
+                Shopping Cart
+                <h2 className=""></h2>
               </div>
+              <div className="grid gap-1">
+                {items.map((item) => (
+                  <div className="card card-side bg-white shadow-xl">
+                    <figure>
+                      <Image
+                        src={urlFor(item.image[0]).url()}
+                        width={70}
+                        height={70}
+                        className="rounded-md"
+                        alt={''}
+                      />
+                    </figure>
+                    <div className="card-body">
+                      <h2 className="font-medium">{item.title}</h2>
+                      <h2 className="font-medium text-green-700">In Stock</h2>
+                      <h2 className="font-medium">
+                        Eligible for FREE Shipping
+                      </h2>
 
-              <div className="my-14 space-y-4">
-                <h4 className="text-xl font-semibold">
-                  How would you like to check out?
-                </h4>
-                <div className="flex flex-col gap-4 md:flex-row">
-                  <div className="order-2 flex flex-1 flex-col items-center rounded-xl bg-gray-200 p-8 py-12 text-center">
-                    <h4 className="mb-4 flex flex-col text-xl font-semibold">
-                      <span>Pay Monthly</span>
-                      <span>with Apple Card</span>
-                      <span>
-                        $283.16/mo. at 0% APR<sup className="-top-1">◊</sup>
-                      </span>
-                    </h4>
-                    <Button title="Check Out with Apple Card Monthly Installments" />
-                    <p className="mt-2 max-w-[240px] text-[13px]">
-                      $0.00 due today, which includes applicable full-price
-                      items, down payments, shipping, and taxes.
-                    </p>
+                      <div className="card-actions justify-start">
+                        {' '}
+                        <div className="flex items-center card-title">
+                          <select
+                            id="quantity-select"
+                            className="px-4 py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-300 border-collapse shadow-lg font-medium"
+                            value={quantity}
+                            onChange={handleQuantityChange}
+                          >
+                            {' '}
+                            <option
+                              key={quantity}
+                              value={quantity}
+                              className="font-medium"
+                            >
+                              Qty : {quantity}
+                            </option>
+                            {[...Array(10)].map((_, i) => (
+                              <option key={i + 1} value={i + 1}>
+                                {i + 1}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <a className="linkDeleteSaveLater font-medium">
+                          Delete
+                        </a>
+                        |
+                        <a className="linkDeleteSaveLater font-medium">
+                          Save for Later
+                        </a>
+                      </div>
+                      <div className="card-actions justify-end">
+                        <h2 className="font-medium">{item.price}</h2>
+                      </div>
+                    </div>
                   </div>
-
-                  <div className="flex flex-1 flex-col items-center space-y-8 rounded-xl bg-gray-200 p-8 py-12 md:order-2">
-                    <h4 className="mb-4 flex flex-col text-xl font-semibold">
-                      Pay in full
-                      <span>
-                        <Currency quantity={basketTotal} currency="USD" />
-                      </span>
-                    </h4>
-
-                    <Button
-                      noIcon
-                      loading={loading}
-                      title="Check Out"
-                      width="w-full"
-                    />
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
+
+            <>
+              <div className="py-0.5"></div>
+            </>
           </div>
-        )}
-      </main>
-    </div>
+
+          <div className="xl:col-span-3 lg:col-span-4 border border-gray-200 px-4 py-4 rounded mt-6 lg:mt-0 bg-white">
+            <h3 className="text-gray-800 text-lg mb-4 font-medium uppercase ">
+              Order Summary
+            </h3>
+
+            <div className="space-y-1 text-gray-600 pb-3 border-b border-gray-200 ">
+              <div className="flex justify-between font-medium">
+                <p>Subtotal</p>
+                <p>{basketTotal}</p>
+              </div>
+
+              <div className="flex justify-between font-medium">
+                <p>Delivery</p>
+                <p>Free</p>
+              </div>
+
+              <div className="flex justify-between font-medium">
+                <p>Tax</p>
+                <p>Free</p>
+              </div>
+            </div>
+
+            <div className="flex justify-between my-3 text-gray-800 font-semibold uppercase">
+              <h4>Total</h4>
+              <h4>{basketTotal} </h4>
+            </div>
+
+            <div className="flex mb-4">
+              <input
+                type="text"
+                className="pl-4 w-full border border-r-0 border-primary py-2 px-3 rounded-l-md focus:ring-primary focus:border-primary text-sm bg-white"
+                placeholder="Coupon"
+              />
+
+              <div className="space-x-8">
+                <Button title="Apply" />
+              </div>
+            </div>
+
+            <Button title="CHECKOUT" width="20" />
+          </div>
+        </div>
+      </div>
+    </>
   );
-}
+};
 
 export default Checkout;
