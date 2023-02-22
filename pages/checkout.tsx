@@ -34,7 +34,7 @@ const Checkout = () => {
 
     setGroupedItemsInBasket(groupedItems);
   }, [items]);
-  const handleQuantityChange = (e) => {
+  const handleQuantityChange = (e: any) => {
     setQuantity(e.target.value);
   };
   return (
@@ -46,13 +46,13 @@ const Checkout = () => {
             <div className="bg-white">
               <div className="text-start text-black font-semibold mt-3 py-4 px-3 border-b-2 border-gray-400">
                 Shopping Cart
-                <h2 className=""></h2>
               </div>
               <div className="grid gap-1">
                 {items.map((item) => (
                   <div className="card card-side bg-white shadow-xl">
                     <figure>
                       <Image
+                        key={urlFor(item.image[0]).url()}
                         src={urlFor(item.image[0]).url()}
                         width={70}
                         height={70}

@@ -1,4 +1,5 @@
 import Header from './Header';
+import Image from 'next/image';
 
 function AccountScreen() {
   return (
@@ -19,7 +20,8 @@ function AccountScreen() {
         <div className="col-span-3">
           <div className="px-4 py-3 shadow flex bg-gray-100 items-center gap-4 ">
             <div className="flex-shrink-0">
-              <img
+              <Image
+                alt=""
                 src="/images/images/profile1.jpeg"
                 className="rounded-full w-14 h14 p-1 border border-gray-200 object-cover "
               />
