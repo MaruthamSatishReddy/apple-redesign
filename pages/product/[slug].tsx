@@ -61,7 +61,6 @@ const Product = ({ product }: Props) => {
                   width={70}
                   height={70}
                   className="rounded-md"
-                  onClick={() => privewIMage(this)}
                 />
               </div>
               <div className='border-3 rounded-md bg-slate-600 shadow-2xl cursor-pointer hover:opacity-80 hover:shadow-lg hover:bg-white transition duration-200 ease-out"'>
