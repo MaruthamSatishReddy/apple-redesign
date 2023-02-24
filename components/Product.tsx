@@ -1,4 +1,4 @@
-import { ShoppingBagOutline } from 'heroicons-react';
+import { ShoppingBagIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import { Product } from '../typings';
 import React from 'react';
@@ -63,7 +63,7 @@ function Product({ product }: Props) {
 
       <div className="flex flex-1 items-center justify-between space-x-3">
         <div className="space-y-2 text-xl text-white md:text-2xl">
-          <Link href={`/product/${product.slug.current}`}>
+          <Link href={`/products/${product.slug.current}`}>
             <p>{product.title}</p>
           </Link>
           <p>{product.price}</p>
@@ -73,7 +73,7 @@ function Product({ product }: Props) {
           className="flex h-16 w-16 flex-shrink-0 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 md:h-[70px] md:w-[70px]"
           onClick={addItemToBasket}
         >
-          <ShoppingBagOutline className="h-8 w-8 text-white" />
+          <ShoppingBagIcon className="h-8 w-8 text-white" />
         </div>
       </div>
     </motion.div>

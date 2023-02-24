@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { selectBasketItems } from '../redux/basketSlice';
 import {
-  SearchOutline,
-  ShoppingBagOutline,
-  UserOutline,
-} from 'heroicons-react';
+  SearchIcon,
+  ShoppingBagIcon,
+  UserIcon,
+} from '@heroicons/react/outline';
 import AccountScreen from './Account';
 function Header() {
   const easing = [0.6, -0.5, 1, 0.99];
@@ -63,7 +63,7 @@ function Header() {
         <a className="headerLink">Business</a>
       </div>
       <div className="flex items-center justify-center gap-x-4 md:w-1/5">
-        <SearchOutline className="headerIcon" />
+        <SearchIcon className="headerIcon" />
 
         <Link href="/checkout">
           <div className="relative cursor-pointer">
@@ -72,11 +72,11 @@ function Header() {
                 {items.length}
               </span>
             )}
-            <ShoppingBagOutline className="headerIcon" />
+            <ShoppingBagIcon className="headerIcon" />
           </div>
         </Link>
         <Link href="/">
-          <UserOutline className="headerIcon" />
+          <UserIcon className="headerIcon" />
         </Link>
       </div>
     </header>

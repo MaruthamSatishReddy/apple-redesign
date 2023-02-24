@@ -1,4 +1,4 @@
-import { ShoppingBagOutline } from 'heroicons-react';
+import { ShoppingBagIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { selectBasketItems } from '../redux/basketSlice';
@@ -16,7 +16,7 @@ function Basket() {
             {items.length}
           </span>
         )}
-        <ShoppingBagOutline className="headerIcon h-8 w-8" />
+        <ShoppingBagIcon className="headerIcon h-8 w-8" />
       </div>
     </Link>
   );

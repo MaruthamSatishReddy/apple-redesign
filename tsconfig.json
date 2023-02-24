@@ -20,6 +20,6 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/api/product/[id].jsx"
-, "pages/product/[slug].tsx"  ],
+, "pages/products/[slug].tsx"  ],
   "exclude": ["node_modules"]
 }
