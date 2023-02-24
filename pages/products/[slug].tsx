@@ -57,7 +57,7 @@ const Product = ({ product }: Props) => {
               <div className='border-3 rounded-md bg-slate-600 shadow-2xl cursor-pointer hover:opacity-80 hover:shadow-lg hover:bg-white transition duration-200 ease-out"'>
                 <Image
                   src={urlFor(product.image[0]).url()}
-                  alt=""
+                  alt={''}
                   width={70}
                   height={70}
                   className="rounded-md"
@@ -66,7 +66,7 @@ const Product = ({ product }: Props) => {
               <div className='border-3 rounded-md bg-slate-600 shadow-2xl cursor-pointer hover:opacity-80 hover:shadow-lg hover:bg-white transition duration-200 ease-out"'>
                 <Image
                   src={urlFor(product.image[0]).url()}
-                  alt=""
+                  alt={''}
                   width={70}
                   height={70}
                   className="rounded-md"
@@ -75,7 +75,7 @@ const Product = ({ product }: Props) => {
               <div className='border-3 rounded-md bg-slate-600 shadow-2xl cursor-pointer hover:opacity-80 hover:shadow-lg hover:bg-white transition duration-200 ease-out"'>
                 <Image
                   src={urlFor(product.image[0]).url()}
-                  alt=""
+                  alt={''}
                   width={70}
                   height={70}
                   className="rounded-md"
@@ -95,7 +95,7 @@ const Product = ({ product }: Props) => {
           <div className="rounded-md relative md:h-52 md:w-80 flex-shrink-0 mt-3 ml-10">
             <Image
               src={urlFor(product.image[0]).url()}
-              alt=""
+              alt={''}
               width={500}
               height={500}
               className="rounded-2xl"
