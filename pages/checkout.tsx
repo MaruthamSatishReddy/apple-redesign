@@ -27,7 +27,7 @@ const Checkout = () => {
     }
   };
   useEffect(() => {
-    const groupedItems = items.reduce((results, item) => {
+    const groupedItems = items.reduce((results: any, item: any) => {
       (results[item._id] = results[item._id] || []).push(item);
       return results;
     }, {} as { [key: string]: Product[] });
@@ -47,8 +47,8 @@ const Checkout = () => {
               <div className="text-start text-black font-semibold mt-3 py-4 px-3 border-b-2 border-gray-400">
                 Shopping Cart
               </div>
-              {items.map((item) => (
-                <div className="grid gap-1" key={item._id}>
+              {items.map((item: any, index: any) => (
+                <div className="grid gap-1" key={`${item._id}+${index}`}>
                   <div className="card card-side bg-white shadow-xl">
                     <figure>
                       <Image
