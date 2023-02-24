@@ -84,9 +84,9 @@ const Product = ({ product }: Props) => {
               <div className='border-3 rounded-md bg-slate-600 shadow-2xl cursor-pointer hover:opacity-80 hover:shadow-lg hover:bg-white transition duration-200 ease-out"'>
                 <Image
                   src={urlFor(product.image[0]).url()}
-                  alt=""
                   width={70}
                   height={70}
+                  alt={''}
                   className="rounded-md"
                 />
               </div>
