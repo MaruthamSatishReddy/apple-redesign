@@ -49,10 +49,7 @@ const Checkout = () => {
               </div>
               {items.map((item) => (
                 <div className="grid gap-1" key={item._id}>
-                  <div
-                    className="card card-side bg-white shadow-xl"
-                    key={item._id}
-                  >
+                  <div className="card card-side bg-white shadow-xl">
                     <figure>
                       <Image
                         src={urlFor(item.image[0]).url()}
