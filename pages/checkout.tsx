@@ -47,15 +47,11 @@ const Checkout = () => {
               <div className="text-start text-black font-semibold mt-3 py-4 px-3 border-b-2 border-gray-400">
                 Shopping Cart
               </div>
-              <div className="grid gap-1">
-                {items.map((item) => (
-                  <div
-                    className="card card-side bg-white shadow-xl"
-                    key={item._id}
-                  >
+              {items.map((item) => (
+                <div className="grid gap-1" key={item._id}>
+                  <div className="card card-side bg-white shadow-xl">
                     <figure>
                       <Image
-                        key={urlFor(item.image[0]).url()}
                         src={urlFor(item.image[0]).url()}
                         width={70}
                         height={70}
@@ -107,8 +103,8 @@ const Checkout = () => {
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
 
             <>
