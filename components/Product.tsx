@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import { addToBasket } from '../redux/basketSlice';
 import Link from 'next/link';
+import Rating from './Rating';
 
 interface Props {
   product: Product;
@@ -44,7 +45,9 @@ function Product({ product }: Props) {
       position: 'bottom-center',
     });
   };
-
+  const handleRatingChange = (value: any) => {
+    console.log(`New rating value: ${value}`);
+  };
   return (
     <motion.div
       initial="initial"
@@ -55,7 +58,7 @@ function Product({ product }: Props) {
       <motion.div variants={fadeInUp} className="relative h-64 w-full md:h-72">
         <Image
           src={urlFor(product.image[0]).url()}
-          alt=""
+          alt={''}
           layout="fill"
           objectFit="contain"
         />
@@ -67,6 +70,10 @@ function Product({ product }: Props) {
             <p>{product.title}</p>
           </Link>
           <p>{product.price}</p>
+          <Rating
+            defaultValue={product.ratings}
+            onChange={handleRatingChange}
+          />
         </div>
 
         <div

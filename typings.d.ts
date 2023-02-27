@@ -36,7 +36,9 @@ export interface Product {
     _type: 'reference';
     _ref: string;
   };
+  privewImages: Image[];
   image: Image[];
+  ratings: number;
 }
 
 export interface StripeProduct {
