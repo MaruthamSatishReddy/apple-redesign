@@ -39,17 +39,17 @@ const Checkout = () => {
   };
   return (
     <>
-      <Header />
-      <div className="h-screen min-w-full bg-gray-200 overflow-x-hidden scrollbar-thin scrollbar-thumb-[#F7AB0A]/80">
+      <div className="h-screen max-w-full overflow-x-hidden bg-gray-200 scrollbar-thin scrollbar-thumb-[#F7AB0A]/80">
+        <Header />
         <div className="container lg:grid grid-cols-12 gap-4 items-start pb-16 pt-4 ml-10">
           <div className="xl:col-span-8 lg:col-span-8 ">
-            <div className="bg-white">
-              <div className="text-start text-black font-semibold mt-3 py-4 px-3 border-b-2 border-gray-400">
+            <div className="bg-white shadow-lg rounded-md">
+              <h3 className="text-gray-800 text-lg mb-4 font-medium  mt-3 py-4 px-3 border-b-2 border-gray-400 uppercase ">
                 Shopping Cart
-              </div>
+              </h3>
               {items.map((item: any, index: any) => (
                 <div className="grid gap-1" key={`${item._id}+${index}`}>
-                  <div className="card card-side bg-white shadow-xl">
+                  <div className="card card-side bg-white shadow-xl cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first:border-t">
                     <figure>
                       <Image
                         src={urlFor(item.image[0]).url()}
@@ -103,8 +103,10 @@ const Checkout = () => {
                       </div>
                     </div>
                   </div>
+                
                 </div>
               ))}
+              <div className="border-b-2 border-black"></div>
             </div>
 
             <>
