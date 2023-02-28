@@ -9,7 +9,6 @@ import { addToBasket } from '../../redux/basketSlice';
 import { groq } from 'next-sanity';
 import Header from '../../components/Header';
 import { ChevronDownIcon } from '@heroicons/react/outline';
-import { StarIcon } from '@heroicons/react/solid';
 import Rating from '../../components/Rating';
 
 interface Props {
@@ -42,12 +41,12 @@ const Product = ({ product }: Props) => {
 
   const addItemToBasket = () => {
     dispatch(addToBasket(product));
-    toast.success(`${product.title} Added To Basket`, {
+    toast.success(`${product?.title} Added To Basket`, {
       position: 'bottom-center',
     });
   };
-  const [activeImage, setActiveImage] = useState(product.image[0]);
-  const [privewImages] = useState(product.privewImages);
+  const [activeImage, setActiveImage] = useState(product?.image[0]);
+  const [privewImages] = useState(product?.privewImages);
   const handleImageChange = (imageUrl: any) => {
     setActiveImage(imageUrl);
   };
@@ -62,14 +61,14 @@ const Product = ({ product }: Props) => {
           <div className="flex flex-col md:flex-row md:space-x-10">
             <div className="md:w-1/2 relative">
               <Image
-                src={product && urlFor(activeImage).url()}
-                alt={product.title}
+                src={product?.image && urlFor(activeImage).url()}
+                alt={product?.title}
                 layout="fill"
                 objectFit="contain"
                 className="rounded-lg"
               />
               <div className="grid grid-rows-5 space-x-2 mt-2 gap-3">
-                {privewImages.map((imageUrl) => (
+                {privewImages?.map((imageUrl) => (
                   <button
                     onMouseOver={() => handleImageChange(imageUrl)}
                     className={`w-20 h-20 relative rounded-lg focus:outline-none ${
@@ -81,8 +80,8 @@ const Product = ({ product }: Props) => {
                   >
                     {' '}
                     <Image
-                      src={product && urlFor(imageUrl).url()}
-                      alt={product.title}
+                      src={product?.image && urlFor(imageUrl).url()}
+                      alt={product?.title}
                       layout="fill"
                       objectFit="contain"
                       className="border-3 rounded-md bg-slate-600 shadow-2xl cursor-pointer hover:opacity-80 hover:shadow-lg hover:bg-white hover:border-2 border-blue-500 transition duration-200 ease-out"
@@ -92,11 +91,11 @@ const Product = ({ product }: Props) => {
               </div>
             </div>
             <div className="md:w-1/2">
-              <h1 className="text-3xl font-medium mb-4">{product.title}</h1>
+              <h1 className="text-3xl font-medium mb-4">{product?.title}</h1>
               <div className="flex items-center">
                 <div className="flex items-center text-lg text-yellow-500 space-x-2">
                   <Rating
-                    defaultValue={product.ratings}
+                    defaultValue={product?.ratings}
                     onChange={handleRatingChange}
                   />
                 </div>
@@ -104,7 +103,7 @@ const Product = ({ product }: Props) => {
               </div>
               <div className="flex items-center mt-2">
                 <p className="text-xl font-bold text-green-500 mr-2">
-                  {product.price}
+                  {product?.price}
                 </p>
                 <p className="text-sm text-gray-500">Discount</p>
               </div>
@@ -126,7 +125,7 @@ const Product = ({ product }: Props) => {
           </div>
           <div className="mt-10">
             <h2 className="text-2xl font-medium mb-4">Product Description</h2>
-            <p className="text-gray-500">{product.description}</p>
+            <p className="text-gray-500">{product?.description}</p>
           </div>
         </div>
       </div>
