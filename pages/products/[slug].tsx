@@ -10,6 +10,8 @@ import { groq } from 'next-sanity';
 import Header from '../../components/Header';
 import { ChevronDownIcon } from '@heroicons/react/outline';
 import Rating from '../../components/Rating';
+import Button from '../../components/Button';
+import BackButton from '../../components/BackButton';
 
 interface Props {
   product: Product;
@@ -55,11 +57,14 @@ const Product = ({ product }: Props) => {
   };
   return (
     <>
-      <div className="h-screen max-w-full overflow-x-hidden bg-gray-200 scrollbar-thin scrollbar-thumb-[#F7AB0A]/80">
+      <div className="h-screen max-w-full overflow-x-hidden bg-white scrollbar-thin scrollbar-thumb-[#F7AB0A]/80">
         <Header />
-        <div className="container mx-auto py-6 px-4">
+        <div className="container mx-auto py-6 px-4 mt-10">
+          <p className="mt-5">
+            <BackButton />
+          </p>
           <div className="flex flex-col md:flex-row md:space-x-10">
-            <div className="md:w-1/2 relative">
+            <div className="md:w-1/2 relative bg-gray-200 shadow-lg rounded-md">
               <Image
                 src={product?.image && urlFor(activeImage).url()}
                 alt={product?.title}
@@ -84,7 +89,7 @@ const Product = ({ product }: Props) => {
                       alt={product?.title}
                       layout="fill"
                       objectFit="contain"
-                      className="border-3 rounded-md bg-slate-600 shadow-2xl cursor-pointer hover:opacity-80 hover:shadow-lg hover:bg-white hover:border-2 border-blue-500 transition duration-200 ease-out"
+                      className="border-3 rounded-md bg-gray-400 shadow-2xl cursor-pointer hover:opacity-80 hover:shadow-lg hover:bg-white hover:border-2 border-blue-500 transition duration-200 ease-out"
                     />
                   </button>
                 ))}
@@ -93,7 +98,7 @@ const Product = ({ product }: Props) => {
             <div className="md:w-1/2">
               <h1 className="text-3xl font-medium mb-4">{product?.title}</h1>
               <div className="flex items-center">
-                <div className="flex items-center text-lg text-yellow-500 space-x-2">
+                <div className="flex items-center text-lg text-[#F7AB0A]/80 space-x-2">
                   <Rating
                     defaultValue={product?.ratings}
                     onChange={handleRatingChange}
@@ -113,13 +118,9 @@ const Product = ({ product }: Props) => {
                 </p>
                 <ChevronDownIcon height={20} width={20} />
               </div>
-              <div className="mt-6">
-                <button className="bg-yellow-500 text-white px-8 py-2 rounded-md font-bold shadow-md hover:bg-yellow-600 transition duration-200 mr-4">
-                  Add to Cart
-                </button>
-                <button className="bg-gray-200 text-gray-600 px-8 py-2 rounded-md font-bold shadow-md hover:bg-gray-300 transition duration-200">
-                  Buy Now
-                </button>
+              <div className="flex items-center flex-row gap-2 mt-2">
+                <Button title="Add To Cart" width="20" />
+                <Button title="Buy Now" width="20" />
               </div>
             </div>
           </div>

@@ -21,8 +21,8 @@ export default function Rating({ defaultValue = 0, onChange }: RatingProps) {
           onClick={() => handleStarClick(val)}
           className={`focus:outline-none ${
             val <= value
-              ? 'text-yellow-500'
-              : 'text-gray-400 hover:text-yellow-500'
+              ? 'shadow-lg text-[#F7AB0A]/80'
+              : 'text-gray-400 hover:text-[#F7AB0A]/80'
           }`}
         >
           {val <= value ? (
