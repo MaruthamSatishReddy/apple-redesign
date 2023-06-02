@@ -86,7 +86,6 @@ const Product = ({ product }: Props) => {
                         ? 'border-2 border-yellow-500'
                         : 'border border-gray-300'
                     }`}
-                    key={imageUrl}
                   >
                     <div className="flex justify-center items-center h-full">
                       <Image
