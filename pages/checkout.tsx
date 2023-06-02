@@ -4,38 +4,21 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectBasketItems, selectBasketTotal } from '../redux/basketSlice';
 import Image from 'next/image';
+import { useDispatch } from 'react-redux';
+import { removeFromCart } from '../redux/basketSlice';
 
 import { Product } from '../typings';
 import Button from '../components/Button';
 import { urlFor } from '../sanity';
+
 const Checkout = () => {
   const items = useSelector(selectBasketItems);
   const basketTotal = useSelector(selectBasketTotal);
-  const router = useRouter();
-  const [groupedItemsInBasket, setGroupedItemsInBasket] = useState(
-    {} as { [key: string]: Product[] }
-  );
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
-  const [quantity, setQuantity] = useState(1);
-  const handleIncrement = () => {
-    setQuantity(quantity + 1);
-  };
-  const handleDecrement = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-  useEffect(() => {
-    const groupedItems = items.reduce((results: any, item: any) => {
-      (results[item._id] = results[item._id] || []).push(item);
-      return results;
-    }, {} as { [key: string]: Product[] });
-
-    setGroupedItemsInBasket(groupedItems);
-  }, [items]);
-  const handleQuantityChange = (e: any) => {
-    setQuantity(e.target.value);
+  const [quantity, setQuantity] = useState(items.length);
+  const removeFromCartHandler = () => {
+    dispatch(removeFromCart(items));
   };
   return (
     <>
@@ -44,12 +27,12 @@ const Checkout = () => {
         <div className="container lg:grid grid-cols-12 gap-4 items-start pb-16 pt-4 ml-10">
           <div className="xl:col-span-8 lg:col-span-8 ">
             <div className="bg-white shadow-lg rounded-md">
-              <h3 className="text-gray-800 text-lg mb-4 font-medium  mt-3 py-4 px-3 border-b-2 border-gray-400 uppercase ">
+              <h3 className="text-gray-800 text-lg mb-4 font-medium  mt-3 py-4 px-3 border-b-2 uppercase ">
                 Shopping Cart
               </h3>
               {items.map((item: any, index: any) => (
                 <div className="grid gap-1" key={`${item._id}+${index}`}>
-                  <div className="card card-side bg-white shadow-xl cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first:border-t">
+                  <div className="card card-side ml-3 bg-white shadow-xl cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first:border-t">
                     <figure>
                       <Image
                         src={urlFor(item.image[0]).url()}
@@ -69,27 +52,13 @@ const Checkout = () => {
                       <div className="card-actions justify-start">
                         {' '}
                         <div className="flex items-center card-title">
-                          <select
-                            id="quantity-select"
-                            className="px-4 py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-300 border-collapse shadow-lg font-medium"
-                            value={quantity}
-                            onChange={handleQuantityChange}
-                          >
-                            {' '}
-                            <option
-                              key={quantity}
-                              value={quantity}
-                              className="font-medium"
-                            >
-                              Qty : {quantity}
-                            </option>
-                            {[...Array(10)].map((_, i) => (
-                              <option key={i + 1} value={i + 1}>
-                                {i + 1}
-                              </option>
-                            ))}
-                          </select>
+                          Quantity: {quantity}
                         </div>
+                        <Button
+                          title="Add To Cart"
+                          width="20"
+                          onClick={removeFromCartHandler}
+                        />
                         <a className="linkDeleteSaveLater font-medium">
                           Delete
                         </a>
@@ -103,7 +72,6 @@ const Checkout = () => {
                       </div>
                     </div>
                   </div>
-                
                 </div>
               ))}
               <div className="border-b-2 border-black"></div>
@@ -114,7 +82,7 @@ const Checkout = () => {
             </>
           </div>
 
-          <div className="xl:col-span-3 lg:col-span-4 border border-gray-200 px-4 py-4 rounded mt-6 lg:mt-0 bg-white">
+          <div className="xl:col-span-3 lg:col-span-4 border border-gray-200 px-4 py-6 rounded mt-6 lg:mt-0 bg-white">
             <h3 className="text-gray-800 text-lg mb-4 font-medium uppercase ">
               Order Summary
             </h3>
@@ -152,8 +120,7 @@ const Checkout = () => {
                 <Button title="Apply" />
               </div>
             </div>
-
-            <Button title="CHECKOUT" width="20" />
+            <Button title="CHECKOUT" width="100" />
           </div>
         </div>
       </div>

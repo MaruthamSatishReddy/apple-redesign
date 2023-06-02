@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { sanityClient } from '../../sanity';
-import { Product } from '../../typings';
+import { Product, Child } from '../../typings';
 import { urlFor } from '../../sanity';
 import Image from 'next/image';
+
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { addToBasket } from '../../redux/basketSlice';
@@ -12,6 +13,7 @@ import { ChevronDownIcon } from '@heroicons/react/outline';
 import Rating from '../../components/Rating';
 import Button from '../../components/Button';
 import BackButton from '../../components/BackButton';
+import { GetStaticPropsContext } from 'next';
 
 interface Props {
   product: Product;
@@ -52,6 +54,7 @@ const Product = ({ product }: Props) => {
   const handleImageChange = (imageUrl: any) => {
     setActiveImage(imageUrl);
   };
+
   const handleRatingChange = (value: any) => {
     console.log(`New rating value: ${value}`);
   };
@@ -59,43 +62,47 @@ const Product = ({ product }: Props) => {
     <>
       <div className="h-screen max-w-full overflow-x-hidden bg-white scrollbar-thin scrollbar-thumb-[#F7AB0A]/80">
         <Header />
-        <div className="container mx-auto py-6 px-4 mt-10">
+        <div className="container mx-auto py-6 px-4 mt-10 ml-10">
           <p className="mt-5">
             <BackButton />
           </p>
-          <div className="flex flex-col md:flex-row md:space-x-10">
-            <div className="md:w-1/2 relative bg-gray-200 shadow-lg rounded-md">
-              <Image
-                src={product?.image && urlFor(activeImage).url()}
-                alt={product?.title}
-                layout="fill"
-                objectFit="contain"
-                className="rounded-lg"
-              />
-              <div className="grid grid-rows-5 space-x-2 mt-2 gap-3">
+          <div className="flex flex-col md:flex-row md:space-x-5">
+            <div className="md:w-1/3 relative bg-gray-200 shadow-lg rounded-md md:py-3">
+              <div className="flex justify-center items-center h-96">
+                <Image
+                  src={product?.image ? urlFor(activeImage).url() : ''}
+                  alt={''}
+                  height={400}
+                  width={400}
+                  className="rounded-lg"
+                />
+              </div>
+              <div className="grid grid-cols-4 gap-2 mt-4">
                 {privewImages?.map((imageUrl) => (
                   <button
                     onMouseOver={() => handleImageChange(imageUrl)}
-                    className={`w-20 h-20 relative rounded-lg focus:outline-none ${
+                    className={`w-20 h-20 relative rounded-lg ${
                       activeImage === imageUrl
-                    }
                         ? 'border-2 border-yellow-500'
                         : 'border border-gray-300'
                     }`}
+                    key={imageUrl}
                   >
-                    {' '}
-                    <Image
-                      src={product?.image && urlFor(imageUrl).url()}
-                      alt={product?.title}
-                      layout="fill"
-                      objectFit="contain"
-                      className="border-3 rounded-md bg-gray-400 shadow-2xl cursor-pointer hover:opacity-80 hover:shadow-lg hover:bg-white hover:border-2 border-blue-500 transition duration-200 ease-out"
-                    />
+                    <div className="flex justify-center items-center h-full">
+                      <Image
+                        src={product?.image && urlFor(imageUrl).url()}
+                        alt={product?.title}
+                        width={100}
+                        height={100}
+                        className="rounded-md border-gray-300 shadow-2xl cursor-pointer hover:opacity-80 hover:shadow-lg"
+                      />
+                    </div>
                   </button>
                 ))}
               </div>
             </div>
-            <div className="md:w-1/2">
+
+            <div className="md:w-2/3">
               <h1 className="text-3xl font-medium mb-4">{product?.title}</h1>
               <div className="flex items-center">
                 <div className="flex items-center text-lg text-[#F7AB0A]/80 space-x-2">
@@ -119,14 +126,26 @@ const Product = ({ product }: Props) => {
                 <ChevronDownIcon height={20} width={20} />
               </div>
               <div className="flex items-center flex-row gap-2 mt-2">
-                <Button title="Add To Cart" width="20" />
+                <Button
+                  title="Add To Cart"
+                  width="20"
+                  onClick={addItemToBasket}
+                />
                 <Button title="Buy Now" width="20" />
               </div>
             </div>
           </div>
           <div className="mt-10">
             <h2 className="text-2xl font-medium mb-4">Product Description</h2>
-            <p className="text-gray-500">{product?.description}</p>
+            <p className="text-gray-500">
+              {product?.description?.children?.map(
+                (child: Child, index: number) => (
+                  <p key={index} className="text-gray-500">
+                    {child.level}
+                  </p>
+                )
+              )}
+            </p>
           </div>
         </div>
       </div>
@@ -135,24 +154,20 @@ const Product = ({ product }: Props) => {
 };
 
 export async function getStaticPaths() {
-  const paths = await sanityClient.fetch(
-    groq`*[_type == "post" && defined(slug.current)][].slug.current`
-  );
+  const paths = await sanityClient.fetch<string[]>(groq`
+    *[_type == "product" && defined(slug.current)].slug.current
+    `);
 
   return {
-    paths: paths.map((slug: any) => ({ params: { slug } })),
+    paths: paths.map((slug) => ({ params: { slug } })),
     fallback: true,
   };
 }
-
-export async function getStaticProps(context: {
-  params: { slug?: '' | undefined };
-}) {
-  const { slug = '' } = context.params;
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const { params } = context;
+  const { slug } = params as { slug: string };
   const product = await sanityClient.fetch(
-    `
-    *[_type == "product" && slug.current == $slug][0]
-  `,
+    groq`*[_type == "product" && imac24.current == imac24][1]`,
     { slug }
   );
 

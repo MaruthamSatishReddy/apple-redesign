@@ -6,7 +6,7 @@ import { urlFor } from '../sanity';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
-import { addToBasket } from '../redux/basketSlice';
+import { addToBasket, addToCart } from '../redux/basketSlice';
 import Link from 'next/link';
 import Rating from './Rating';
 
@@ -48,6 +48,9 @@ function Product({ product }: Props) {
   const handleRatingChange = (value: any) => {
     console.log(`New rating value: ${value}`);
   };
+  const addItemToCart = () => {
+    dispatch(addToCart(product));
+  };
   return (
     <motion.div
       initial="initial"
@@ -78,7 +81,7 @@ function Product({ product }: Props) {
 
         <div
           className="flex h-16 w-16 flex-shrink-0 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 md:h-[70px] md:w-[70px]"
-          onClick={addItemToBasket}
+          onClick={addItemToCart}
         >
           <ShoppingBagIcon className="h-8 w-8 text-white" />
         </div>

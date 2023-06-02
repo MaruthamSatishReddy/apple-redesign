@@ -31,7 +31,7 @@ export interface Product {
     _type: 'slug';
     current: string;
   };
-  description: string;
+  description: Child;
   category: {
     _type: 'reference';
     _ref: string;
@@ -39,8 +39,17 @@ export interface Product {
   privewImages: Image[];
   image: Image[];
   ratings: number;
+  quantity: number;
 }
-
+export interface Child {
+  _key: string;
+  listItem: string;
+  markDefs: any[];
+  children: any[];
+  level: number;
+  _type: string;
+  style: string;
+}
 export interface StripeProduct {
   id: string;
   amount_discount: number;

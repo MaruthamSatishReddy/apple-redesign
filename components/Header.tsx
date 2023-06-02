@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { selectBasketItems } from '../redux/basketSlice';
+import BackButton from '../components/BackButton';
 import {
   SearchIcon,
   ShoppingBagIcon,
@@ -42,19 +43,17 @@ function Header() {
         exit={{ opacity: 0 }}
         className="flex items-center justify-center md:w-1/5"
       >
-        <Link href="">
-          <motion.div
-            variants={fadeInUp}
-            className="relative h-10 w-5 cursor-pointer opacity-75 transition hover:opacity-100"
-          >
-            <Image
-              src="/Images/logo.webp"
-              alt={''}
-              layout="fill"
-              objectFit="contain"
-            />
-          </motion.div>
-        </Link>
+        <motion.div
+          variants={fadeInUp}
+          className="relative h-10 w-5 cursor-pointer opacity-75 transition hover:opacity-100"
+        >
+          <Image
+            src="/Images/logo.webp"
+            alt={''}
+            layout="fill"
+            objectFit="contain"
+          />
+        </motion.div>
       </motion.div>
       <div className="hidden flex-1 items-center justify-center space-x-8 md:flex">
         <a className="headerLink">Product</a>
