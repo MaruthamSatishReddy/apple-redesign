@@ -56,7 +56,7 @@ function Product({ product }: Props) {
       initial="initial"
       animate="animate"
       exit={{ opacity: 0 }}
-      className="flex h-fit w-[320px] select-none flex-col space-y-3 rounded-xl bg-[#35383C] p-8 md:h-[500px] md:w-[400px] md:p-10 "
+      className="flex h-fit w-[320px] select-none flex-col space-y-3 rounded-xl bg-white p-8 md:h-[500px] md:w-[400px] md:p-10 "
     >
       <motion.div variants={fadeInUp} className="relative h-64 w-full md:h-72">
         <Image
@@ -68,8 +68,8 @@ function Product({ product }: Props) {
       </motion.div>
 
       <div className="flex flex-1 items-center justify-between space-x-3">
-        <div className="space-y-2 text-xl text-white md:text-2xl">
-          <Link href={`/products/${product.slug.current}`}>
+        <div className="space-y-2 text-xl text-gray-500 md:text-2xl">
+          <Link href={`/products/${encodeURIComponent(product.slug.current)}`}>
             <p>{product.title}</p>
           </Link>
           <p>{product.price}</p>

@@ -60,14 +60,14 @@ const Product = ({ product }: Props) => {
   };
   return (
     <>
-      <div className="h-screen max-w-full overflow-x-hidden bg-white scrollbar-thin scrollbar-thumb-[#F7AB0A]/80">
+      <div className="h-screen max-w-full overflow-x-hidden scrollbar-thin scrollbar-thumb-[#F7AB0A]/80">
         <Header />
-        <div className="container mx-auto py-6 px-4 mt-10 ml-10">
+        <div className="container  mx-auto md:h-[400px] md:w-[600px] md:p-5 md: pt-0 md:py-8 md:pl-1 md:mt-4 md:ml-6 flex h-fit select-none flex-col space-y-3 rounded-xl p-8 lg:w-[1250px]">
           <p className="mt-5">
             <BackButton />
           </p>
-          <div className="flex flex-col md:flex-row md:space-x-5">
-            <div className="md:w-1/3 relative bg-gray-200 shadow-lg rounded-md md:py-3">
+          <div className="flex flex-col md:flex-row md:space-x-8">
+            <div className="md:w-1/3 relative bg-white shadow-lg rounded-md md:py-3">
               <div className="flex justify-center items-center h-96">
                 <Image
                   src={product?.image ? urlFor(activeImage).url() : ''}
@@ -138,9 +138,9 @@ const Product = ({ product }: Props) => {
             <h2 className="text-2xl font-medium mb-4">Product Description</h2>
             <p className="text-gray-500">
               {product?.description?.children?.map(
-                (child: Child, index: number) => (
+                (child: any, index: number) => (
                   <p key={index} className="text-gray-500">
-                    {child.level}
+                    {child.text}
                   </p>
                 )
               )}
@@ -153,20 +153,19 @@ const Product = ({ product }: Props) => {
 };
 
 export async function getStaticPaths() {
-  const paths = await sanityClient.fetch<string[]>(groq`
-    *[_type == "product" && defined(slug.current)].slug.current
+  const paths = await sanityClient.fetch(`
+    *[_type == "product" && defined(slug.current)][].slug.current
     `);
 
   return {
-    paths: paths.map((slug) => ({ params: { slug } })),
+    paths: paths.map((slug: any) => ({ params: { slug } })),
     fallback: true,
   };
 }
-export async function getStaticProps(context: GetStaticPropsContext) {
-  const { params } = context;
-  const { slug } = params as { slug: string };
+export async function getStaticProps(context: any) {
+  const { slug = '' } = context.params;
   const product = await sanityClient.fetch(
-    groq`*[_type == "product" && imac24.current == imac24][1]`,
+    groq`*[_type == "product" && imac-24 == imac-24][1]`,
     { slug }
   );
 

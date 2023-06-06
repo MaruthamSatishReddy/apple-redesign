@@ -24,10 +24,10 @@ const Checkout = () => {
     <>
       <div className="h-screen max-w-full overflow-x-hidden bg-gray-200 scrollbar-thin scrollbar-thumb-[#F7AB0A]/80">
         <Header />
-        <div className="container lg:grid grid-cols-12 gap-4 items-start pb-16 pt-4 ml-10">
+        <div className="container md:ml-4 lg:grid grid-cols-12 gap-4 items-start pb-16 pt-4 lg:ml-10 shadow-lg">
           <div className="xl:col-span-8 lg:col-span-8 ">
             <div className="bg-white shadow-lg rounded-md">
-              <h3 className="text-gray-800 text-lg mb-4 font-medium  mt-3 py-4 px-3 border-b-2 uppercase ">
+              <h3 className="text-gray-800 text-lg mb-4 font-medium mt-0 py-4 px-3 border-b-2 uppercase shadow-lg">
                 Shopping Cart
               </h3>
               {items.map((item: any, index: any) => (
@@ -54,18 +54,15 @@ const Checkout = () => {
                         <div className="flex items-center card-title">
                           Quantity: {quantity}
                         </div>
-                        <Button
-                          title="Add To Cart"
-                          width="20"
-                          onClick={removeFromCartHandler}
-                        />
-                        <a className="linkDeleteSaveLater font-medium">
-                          Delete
-                        </a>
-                        |
-                        <a className="linkDeleteSaveLater font-medium">
-                          Save for Later
-                        </a>
+                        <div>
+                          <a className="linkDeleteSaveLater font-medium">
+                            Delete
+                          </a>
+                          |
+                          <a className="linkDeleteSaveLater font-medium">
+                            Save for Later
+                          </a>
+                        </div>
                       </div>
                       <div className="card-actions justify-end">
                         <h2 className="font-medium">{item.price}</h2>
