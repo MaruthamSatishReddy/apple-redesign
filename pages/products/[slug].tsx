@@ -62,7 +62,7 @@ const Product = ({ product }: Props) => {
     <>
       <div className="h-screen max-w-full overflow-x-hidden scrollbar-thin scrollbar-thumb-[#F7AB0A]/80">
         <Header />
-        <div className="container  mx-auto md:h-[400px] md:w-[600px] md:p-5 md: pt-0 md:py-8 md:pl-1 md:mt-4 md:ml-6 flex h-fit select-none flex-col space-y-3 rounded-xl p-8 lg:w-[1250px]">
+        <div className="container flex h-fit select-none flex-col space-y-3 rounded-xl p-8  mx-auto md:h-[400px] md:w-[600px] md:p-5 md: pt-0 md:py-8 md:pl-1 md:mt-4 md:ml-6 lg:w-[1250px]">
           <p className="mt-5">
             <BackButton />
           </p>

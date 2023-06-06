@@ -35,11 +35,27 @@ function Landing() {
     >
       <div className="space-y-8">
         <h1 className="space-y-3 text-5xl font-semibold tracking-wide lg:text-6xl xl:text-7xl">
-          <span className="block bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
+          <motion.span
+            animate={{ x: 70 }}
+            transition={{ ease: 'easeOut', duration: 2 }}
+            className="block bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent"
+          >
             Powered
-          </span>
-          <span className="block">By Intellect</span>
-          <span className="block">Driven By Values</span>
+          </motion.span>
+          <motion.span
+            animate={{ x: 70 }}
+            transition={{ ease: 'easeOut', duration: 1 }}
+            className="block"
+          >
+            By Intellect
+          </motion.span>
+          <motion.span
+            animate={{ x: 100 }}
+            transition={{ ease: 'easeOut', duration: 3 }}
+            className="block"
+          >
+            Driven By Values
+          </motion.span>
         </h1>
 
         <div className="space-x-8">

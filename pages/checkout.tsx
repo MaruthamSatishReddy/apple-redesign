@@ -25,14 +25,15 @@ const Checkout = () => {
       <div className="h-screen max-w-full overflow-x-hidden bg-gray-200 scrollbar-thin scrollbar-thumb-[#F7AB0A]/80">
         <Header />
         <div className="container md:ml-4 lg:grid grid-cols-12 gap-4 items-start pb-16 pt-4 lg:ml-10 shadow-lg">
-          <div className="xl:col-span-8 lg:col-span-8 ">
+          <div className="xl:col-span-8 lg:col-span-8 shadow-lg">
             <div className="bg-white shadow-lg rounded-md">
-              <h3 className="text-gray-800 text-lg mb-4 font-medium mt-0 py-4 px-3 border-b-2 uppercase shadow-lg">
+              <h3 className="text-gray-800 text-lg mb-4 font-medium mt-0 py-4 px-3 border-b-2 uppercase">
                 Shopping Cart
               </h3>
+              {items.length != 0}
               {items.map((item: any, index: any) => (
                 <div className="grid gap-1" key={`${item._id}+${index}`}>
-                  <div className="card card-side ml-3 bg-white shadow-xl cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first:border-t">
+                  <div className="card card-side m-1 bg-white shadow-xl cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out first:border-t">
                     <figure>
                       <Image
                         src={urlFor(item.image[0]).url()}
@@ -79,7 +80,7 @@ const Checkout = () => {
             </>
           </div>
 
-          <div className="xl:col-span-3 lg:col-span-4 border border-gray-200 px-4 py-6 rounded mt-6 lg:mt-0 bg-white">
+          <div className="xl:col-span-3 lg:col-span-4 border border-gray-200 px-4 py-6 rounded mt-6 lg:mt-0 bg-white shadow-lg">
             <h3 className="text-gray-800 text-lg mb-4 font-medium uppercase ">
               Order Summary
             </h3>
